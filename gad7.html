@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>שאלון GAD-7 - חרדה</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .question-card {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 15px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 4px var(--shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .question-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px var(--shadow);
+    }
+
+    .options-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .option-button {
+      padding: 0.8rem;
+      border: 2px solid var(--primary);
+      border-radius: 10px;
+      background: white;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .option-button:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .option-button.selected {
+      background: var(--primary);
+      color: white;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: #e0e0e0;
+      border-radius: 5px;
+      margin: 2rem 0;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: var(--primary);
+      width: 0%;
+      transition: width 0.3s ease;
+    }
+
+    .submit-button {
+      background: var(--primary);
+      color: white;
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 2rem;
+    }
+
+    .submit-button:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    .submit-button:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+
+    .result-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      margin-top: 2rem;
+      text-align: center;
+      display: none;
+    }
+
+    .result-score {
+      font-size: 2rem;
+      color: var(--primary);
+      margin: 1rem 0;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .question-card {
+      animation: fadeIn 0.5s ease forwards;
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav-bar">
+    <div class="nav-content">
+      <div class="nav-logo">
+        <span class="logo-text">תמיכה נפשית</span>
+      </div>
+      <div class="nav-links">
+          <a href="index.html">דף ראשי</a>
+          <a href="gad7.html" class="active">חרדה</a>
+          <a href="pcl5.html">פוסט טראומה</a>
+          <a href="phq9.html">דיכאון</a>
+          <a href="ai.html" >תמיכה AI</a>
+          <a href="meditations.html">מדיטציה</a>
+          <a href="Mood-Tracker.html">מעקב רגשות</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <div class="hero-section">
+      <h1 class="hero-title">שאלון GAD-7 להערכת חרדה</h1>
+      <p class="hero-subtitle">באיזו תדירות הטרידו אותך הבעיות הבאות בשבועיים האחרונים?</p>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress-fill" id="progressBar"></div>
+    </div>
+
+    <form id="gadForm">
+      <div id="questionsContainer"></div>
+      
+      <button type="submit" class="submit-button" id="submitButton" disabled>
+        סיים שאלון
+      </button>
+    </form>
+
+    <div class="result-card" id="resultCard">
+      <h2>תוצאות השאלון</h2>
+      <div class="result-score" id="resultScore"></div>
+      <p id="resultText"></p>
+    </div>
+  </main>
+
+  <script>
+    const questions = [
+      "תחושת עצבנות, חרדה או מתח",
+      "חוסר יכולת להפסיק או לשלוט בדאגות",
+      "דאגה יתר לדברים שונים",
+      "קושי להירגע",
+      "חוסר שקט כך שקשה לשבת במנוחה",
+      "נטייה להתרגז או להיות מעוצבן בקלות",
+      "תחושת פחד כאילו עומד לקרות משהו נורא"
+    ];
+
+    const options = [
+      { text: "בכלל לא", value: 0 },
+      { text: "מספר ימים", value: 1 },
+      { text: "יותר ממחצית הימים", value: 2 },
+      { text: "כמעט כל יום", value: 3 }
+    ];
+
+    const container = document.getElementById("questionsContainer");
+    const answers = new Array(questions.length).fill(null);
+
+    questions.forEach((question, index) => {
+      const card = document.createElement("div");
+      card.className = "question-card";
+      card.style.animationDelay = `${index * 0.1}s`;
+
+      const questionText = document.createElement("div");
+      questionText.textContent = `${index + 1}. ${question}`;
+      card.appendChild(questionText);
+
+      const optionsGrid = document.createElement("div");
+      optionsGrid.className = "options-grid";
+
+      options.forEach((option, optionIndex) => {
+        const button = document.createElement("button");
+        button.type = "button";
+        button.className = "option-button";
+        button.textContent = option.text;
+        button.onclick = () => selectOption(index, optionIndex, button);
+        optionsGrid.appendChild(button);
+      });
+
+      card.appendChild(optionsGrid);
+      container.appendChild(card);
+    });
+
+    function selectOption(questionIndex, optionIndex, button) {
+      // Remove selection from other buttons in the same question
+      const questionCard = button.closest('.question-card');
+      questionCard.querySelectorAll('.option-button').forEach(btn => {
+        btn.classList.remove('selected');
+      });
+
+      // Select the clicked button
+      button.classList.add('selected');
+      answers[questionIndex] = options[optionIndex].value;
+
+      // Update progress
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const answered = answers.filter(answer => answer !== null).length;
+      const progress = (answered / questions.length) * 100;
+      document.getElementById("progressBar").style.width = `${progress}%`;
+      
+      // Enable submit button if all questions are answered
+      document.getElementById("submitButton").disabled = answered < questions.length;
+    }
+
+    document.getElementById("gadForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const score = answers.reduce((sum, value) => sum + value, 0);
+      const resultCard = document.getElementById("resultCard");
+      const resultScore = document.getElementById("resultScore");
+      const resultText = document.getElementById("resultText");
+
+      resultScore.textContent = `ציון: ${score}`;
+
+      let severity;
+      if (score <= 4) {
+        severity = "מינימלית";
+        resultText.textContent = "רמת החרדה שלך מינימלית. המשך לשמור על שגרה בריאה.";
+      } else if (score <= 9) {
+        severity = "קלה";
+        resultText.textContent = "רמת החרדה שלך קלה. מומלץ לנסות תרגילי הרפיה ונשימות.";
+      } else if (score <= 14) {
+        severity = "בינונית";
+        resultText.textContent = "רמת החרדה שלך בינונית. כדאי לשקול שיחה עם איש מקצוע.";
+      } else {
+        severity = "חמורה";
+        resultText.textContent = "רמת החרדה שלך חמורה. מומלץ לפנות לעזרה מקצועית בהקדם.";
+      }
+
+      resultCard.style.display = "block";
+      
+      // Save results and redirect after delay
+      localStorage.setItem("gad7Score", score);
+      localStorage.setItem("gad7Severity", severity);
+      
+      setTimeout(() => {
+        window.location.href = `ai.html?type=anxiety&level=${severity}`;
+      }, 3000);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>מעקב רגשות</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary: #3f51b5;
+      --primary-dark: #303f9f;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    /* בר ניווט */
+    .nav-bar {
+      background: var(--primary);
+      color: white;
+      padding: 10px 20px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: auto;
+    }
+
+    .nav-logo .logo-text {
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .nav-links a {
+      margin-right: 20px;
+      color: white;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      text-decoration: underline;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: var(--primary);
+    }
+
+    .mood-container {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .mood-button {
+      font-size: 22px;
+      padding: 10px;
+      background: #fff;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .mood-button:hover {
+      background: #e0f0ff;
+      border-color: #3f51b5;
+    }
+
+    textarea {
+      margin-top: 20px;
+      width: 90%;
+      max-width: 400px;
+      height: 80px;
+      border-radius: 10px;
+      padding: 10px;
+      border: 1px solid #ccc;
+      resize: none;
+    }
+
+    .save-btn {
+      margin-top: 10px;
+      padding: 10px 20px;
+      background: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .save-btn:hover {
+      background: var(--primary-dark);
+    }
+
+    #log {
+      margin-top: 30px;
+      text-align: right;
+    }
+
+    .log-entry {
+      background: white;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    canvas {
+      max-width: 100%;
+      margin: 30px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ניווט -->
+  <nav class="nav-bar">
+    <div class="nav-content">
+      <div class="nav-logo">
+        <span class="logo-text">תמיכה נפשית</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">דף ראשי</a>
+        <a href="gad7.html">חרדה</a>
+        <a href="pcl5.html">פוסט טראומה</a>
+        <a href="phq9.html">דיכאון</a>
+        <a href="ai.html">תמיכה AI</a>
+        <a href="meditations.html">מדיטציה</a>
+        <a href="Mood-Tracker.html" class="active">מעקב רגשות</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- תוכן הדף -->
+  <main class="container">
+    <h1>📊 מעקב רגשות יומי</h1>
+
+    <div class="mood-container">
+      <button class="mood-button" onclick="selectMood('עצוב', '😢')">😢 עצוב</button>
+      <button class="mood-button" onclick="selectMood('כועס', '😠')">😠 כועס</button>
+      <button class="mood-button" onclick="selectMood('חרד', '😨')">😨 חרד</button>
+      <button class="mood-button" onclick="selectMood('בודד', '😔')">😔 בודד</button>
+      <button class="mood-button" onclick="selectMood('רגיל', '😐')">😐 רגיל</button>
+      <button class="mood-button" onclick="selectMood('שמח', '😊')">😊 שמח</button>
+    </div>
+
+    <textarea id="moodNote" placeholder="רוצה לשתף למה הרגשת ככה?"></textarea><br>
+    <button class="save-btn" onclick="saveMood()">שמור רגש</button>
+
+    <canvas id="moodChart"></canvas>
+
+    <div id="log"></div>
+  </main>
+
+  <script>
+    let selectedMood = '';
+    let selectedEmoji = '';
+
+    function selectMood(mood, emoji) {
+      selectedMood = mood;
+      selectedEmoji = emoji;
+    }
+
+    function saveMood() {
+      if (!selectedMood) {
+        alert('בחר רגש קודם');
+        return;
+      }
+
+      const today = new Date().toISOString().split('T')[0];
+      const note = document.getElementById("moodNote").value.trim();
+      let moodData = JSON.parse(localStorage.getItem('moodData')) || {};
+
+      moodData[today] = { mood: selectedMood, emoji: selectedEmoji, note: note };
+      localStorage.setItem('moodData', JSON.stringify(moodData));
+
+      document.getElementById("moodNote").value = '';
+      selectedMood = '';
+      selectedEmoji = '';
+      renderMoodLog();
+      renderChart();
+    }
+
+    function renderMoodLog() {
+      const logDiv = document.getElementById('log');
+      logDiv.innerHTML = '';
+      const moodData = JSON.parse(localStorage.getItem('moodData')) || {};
+      const sortedDates = Object.keys(moodData).sort().reverse();
+
+      sortedDates.forEach(date => {
+        const entry = moodData[date];
+        const div = document.createElement('div');
+        div.className = 'log-entry';
+        div.innerHTML = `<strong>${date}:</strong> ${entry.emoji} ${entry.mood}<br>${entry.note || ''}`;
+        logDiv.appendChild(div);
+      });
+    }
+
+    function renderChart() {
+      const ctx = document.getElementById('moodChart').getContext('2d');
+      const moodData = JSON.parse(localStorage.getItem('moodData')) || {};
+      const sortedDates = Object.keys(moodData).sort();
+
+      const labels = sortedDates;
+      const data = sortedDates.map(date => moodScore(moodData[date].mood));
+
+      if (window.moodChartInstance) {
+        window.moodChartInstance.destroy();
+      }
+
+      window.moodChartInstance = new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: labels,
+          datasets: [{
+            label: 'מצב רגשי',
+            data: data,
+            backgroundColor: 'rgba(63, 81, 181, 0.2)',
+            borderColor: 'rgba(63, 81, 181, 1)',
+            borderWidth: 2,
+            tension: 0.3,
+            fill: true
+          }]
+        },
+        options: {
+          scales: {
+            y: {
+              min: 1,
+              max: 6,
+              ticks: {
+                callback: function(value) {
+                  const moods = ["עצוב", "כועס", "חרד", "בודד", "רגיל", "שמח"];
+                  return moods[value - 1];
+                }
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function moodScore(mood) {
+      const moodScale = {
+        "עצוב": 1,
+        "כועס": 2,
+        "חרד": 3,
+        "בודד": 4,
+        "רגיל": 5

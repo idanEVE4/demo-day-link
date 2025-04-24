@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>תמיכה AI מותאמת</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .ai-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .ai-container h1 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+    }
+    .recommendation-list {
+      text-align: right;
+      margin-top: 2rem;
+    }
+    .recommendation-list li {
+      margin-bottom: 0.5rem;
+    }
+    .next-step {
+      margin-top: 2rem;
+    }
+    .next-step button {
+      background: var(--primary);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    .next-step button:hover {
+      background: var(--primary-dark);
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav-bar">
+    <div class="nav-content">
+      <div class="nav-logo">
+        <span class="logo-text">תמיכה נפשית</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">דף ראשי</a>
+        <a href="gad7.html">חרדה</a>
+        <a href="pcl5.html">פוסט טראומה</a>
+        <a href="phq9.html">דיכאון</a>
+        <a href="ai.html" class="active">תמיכה AI</a>
+        <a href="meditations.html">מדיטציה</a>
+        <a href="Mood-Tracker.html">מעקב רגשות</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="ai-container">
+    <h1>תמיכה מותאמת אישית</h1>
+    <div id="aiResponse"></div>
+    <div class="next-step">
+      <button onclick="goToMeditation()">לעבור לתרגול מדיטציה ונשימות</button>
+    </div>
+  </main>
+
+  <script>
+    function getParam(key) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(key);
+    }
+
+    const type = getParam("type"); // 'trauma', 'depression', 'anxiety'
+    const level = getParam("level"); // 'קלה', 'בינונית', 'חמורה'
+    const responseDiv = document.getElementById("aiResponse");
+
+    const messages = {
+      trauma: {
+        קלה: {
+          text: "הסימנים לפוסט טראומה ברמה קלה. זהו זמן טוב לשמור על מודעות ולהיעזר בכלים שיכולים לחזק אותך רגשית.",
+          recs: [
+            "מדיטציה להרפיית מתחים",
+            "תרגול נשימות מרגיעות",
+            "שיחה עם אדם קרוב או יועץ רגשי"
+          ]
+        },
+        בינונית: {
+          text: "זוהתה רמת תסמינים בינונית לפוסט טראומה. מומלץ בחום לשקול שיחה עם מטפל או פסיכולוג.",
+          recs: [
+            "שגרת מדיטציה יומית",
+            "תרגילי נשימה עמוקה",
+            "כתיבה יומית של מחשבות ורגשות"
+          ]
+        },
+        חמורה: {
+          text: "רמת התסמינים חמורה. חשוב לפנות לגורם מקצועי. יש לך זכות לקבל תמיכה מלאה.",
+          recs: [
+            "פנייה לטיפול מקצועי בהקדם",
+            "תרגולי נשימה מרגיעים מספר פעמים ביום",
+            "האזנה למדיטציות מודרכות להרגעה"
+          ]
+        }
+      },
+      depression: {
+        קלה: {
+          text: "תסמינים קלים לדיכאון זוהו. כדאי להמשיך לעקוב אחרי מצב הרוח ולהשתמש בכלים מווסתים.",
+          recs: [
+            "פעילות גופנית מתונה",
+            "טיול בטבע",
+            "תרגול נשימה מודעת"
+          ]
+        },
+        בינונית: {
+          text: "יש תסמינים בינוניים לדיכאון. מומלץ לשלב תמיכה רגשית ופעילות מווסתת.",
+          recs: [
+            "שיחה עם איש מקצוע",
+            "תרגול מדיטציה מלווה",
+            "רישום רגשות ביומן אישי"
+          ]
+        },
+        חמורה: {
+          text: "זוהתה רמת דיכאון חמורה. יש חשיבות רבה לפנייה לעזרה מקצועית מיידית.",
+          recs: [
+            "שיחה עם פסיכולוג קליני או רופא משפחה",
+            "תרגול נשימה להרגעת המחשבות",
+            "מעקב יומי אחר מצב הרוח"
+          ]
+        }
+      },
+      anxiety: {
+        קלה: {
+          text: "רמות חרדה נמוכות. שמירה על שגרה בריאה יכולה לתמוך באיזון רגשי.",
+          recs: [
+            "תרגול נשימות קצר",
+            "מדיטציה להרפיית שרירים",
+            "פעילות גופנית קלה"
+          ]
+        },
+        בינונית: {
+          text: "ישנם סימני חרדה בינונית. כדאי לשלב כלים מרגיעים ולשקול ליווי רגשי.",
+          recs: [
+            "תרגולי נשימה מודרכת",
+            "שיחה עם איש מקצוע",
+            "מדיטציה להרגעת הגוף"
+          ]
+        },
+        חמורה: {
+          text: "רמת חרדה חמורה. מומלץ מאוד לפנות לייעוץ מקצועי.",
+          recs: [
+            "שגרת נשימות יומית",
+            "מדיטציה עם הנחיה",
+            "תמיכה פסיכולוגית קבועה"
+          ]
+        }
+      }
+    };
+
+    if (type && level && messages[type] && messages[type][level]) {
+      const data = messages[type][level];
+      responseDiv.innerHTML = `
+        <p>${data.text}</p>
+        <div class="recommendation-list">
+          <h3>המלצות:</h3>
+          <ul>
+            ${data.recs.map(item => `<li>🔹 ${item}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+    } else {
+      responseDiv.innerHTML = "<p>לא התקבלו נתונים מתאימים. אנא נסה שוב דרך אחד השאלונים.</p>";
+    }
+
+    function goToMeditation() {
+      if (type) {
+        window.location.href = `meditations.html?type=${type}`;
+      } else {
+        alert("לא ניתן לעבור לעמוד מדיטציה - חסר מידע.");
+      }
+    }
+  </script>
+</body>
+</html>

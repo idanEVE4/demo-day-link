@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>מדיטציות ותמיכה רגשית</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+
+    h1, h2 {
+      color: var(--primary, #3f51b5);
+    }
+
+    .section {
+      margin-top: 2rem;
+    }
+
+    ul {
+      padding-right: 1.2rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+
+    iframe {
+      border-radius: 10px;
+      width: 100%;
+      height: 300px;
+      margin-top: 1rem;
+    }
+
+    .back-button {
+      margin-top: 3rem;
+      text-align: center;
+    }
+
+    .back-button a {
+      background: var(--primary, #3f51b5);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 10px;
+      text-decoration: none;
+      transition: background 0.3s ease;
+    }
+
+    .back-button a:hover {
+      background: var(--primary-dark, #303f9f);
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav-bar">
+    <div class="nav-content">
+      <div class="nav-logo">
+        <span class="logo-text">תמיכה נפשית</span>
+      </div>
+        <div class="nav-links">
+          <a href="index.html">דף ראשי</a>
+          <a href="gad7.html">חרדה</a>
+          <a href="pcl5.html">פוסט טראומה</a>
+          <a href="phq9.html">דיכאון</a>
+          <a href="ai.html">תמיכה AI</a>
+          <a href="meditations.html" class="active">מדיטציה</a>
+          <a href="Mood-Tracker.html">מעקב רגשות</a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <h1>תרגולי מדיטציה ונשימות</h1>
+    <div id="meditationContent"></div>
+
+    <div class="back-button">
+      <a href="index.html">חזרה לדף הראשי</a>
+    </div>
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    let type = params.get("type") || localStorage.getItem("diagnosisType") || "depression";
+
+    const content = {
+      trauma: {
+        title: "מדיטציות לפוסט טראומה",
+        tips: [
+          "תרגל נשימות עמוקות 3 פעמים ביום",
+          "שמור על סביבה שקטה ומרגיעה",
+          "השתדל לעקוב אחר תחושות הגוף מתוך קבלה"
+        ],
+        videos: [
+          {
+            title: "מדיטציה להרגעה מיידית",
+            url: "https://www.youtube.com/embed/ZToicYcHIOU"
+          },
+          {
+            title: "תרגול נשימה מעוגנת",
+            url: "https://www.youtube.com/embed/inpok4MKVLM"
+          }
+        ]
+      },
+      depression: {
+        title: "מדיטציות לדיכאון",
+        tips: [
+          "השתדל לצאת לטיול קצר כל יום",
+          "כתוב כל בוקר מחשבות חיוביות קטנות",
+          "הקדש זמן לנשימה שקטה ומודעות"
+        ],
+        videos: [
+          {
+            title: "מדיטציה לבוקר חיובי",
+            url: "https://www.youtube.com/embed/SEfs5TJZ6Nk"
+          },
+          {
+            title: "תרגול מיינדפולנס לדיכאון",
+            url: "https://www.youtube.com/embed/MIr3RsUWrdo"
+          }
+        ]
+      },
+      anxiety: {
+        title: "מדיטציות לחרדה",
+        tips: [
+          "בצע תרגול נשימה מודעת בבוקר ובערב",
+          "שמור על פעילות גופנית מתונה",
+          "שב עם עצמך 10 דקות ביום ללא מסכים"
+        ],
+        videos: [
+          {
+            title: "נשימות להרגעת חרדה",
+            url: "https://www.youtube.com/embed/4pLUleLdwY4"
+          },
+          {
+            title: "מדיטציה מודרכת לשחרור לחץ",
+            url: "https://www.youtube.com/embed/O-6f5wQXSu8"
+          }
+        ]
+      }
+    };
+
+    const data = content[type] || content["depression"];
+    const container = document.getElementById("meditationContent");
+
+    container.innerHTML = 
+      <div class="section">
+        <h2>${data.title}</h2>
+        <ul>
+          ${data.tips.map(tip => <li>🧘 ${tip}</li>).join('')}
+        </ul>
+      </div>
+      <div class="section">
+        <h3>סרטונים מומלצים:</h3>
+        ${data.videos.map(v => 
+          <h4>${v.title}</h4>
+          <iframe src="${v.url}" frameborder="0" allowfullscreen></iframe>
+        ).join('')}
+      </div>
+    ;
+  </script>
+</body>
+</html> 

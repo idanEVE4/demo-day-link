@@ -1,16 +1,311 @@
 <!DOCTYPE html>
-<html>
-
+<html lang="he" dir="rtl">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width">
-  <title>replit</title>
-  <link href="style.css" rel="stylesheet" type="text/css" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>תמיכה נפשית - דף הבית</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      background: #f9f9f9;
+      margin: 0;
+      padding: 0;
+      direction: rtl;
+      text-align: right;
+    }
+
+    .nav-bar {
+      background-color: #4caf50;
+      padding: 1rem;
+      color: white;
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .nav-links a {
+      color: white;
+      margin-right: 1rem;
+      text-decoration: none;
+    }
+
+    .nav-links a.active {
+      font-weight: bold;
+      text-decoration: underline;
+    }
+
+    .hero-section {
+      text-align: center;
+      padding: 2rem;
+      background: #e8f5e9;
+    }
+
+    .mood-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    .mood-item {
+      background: white;
+      border: 1px solid #ccc;
+      border-radius: 12px;
+      padding: 1rem;
+      width: 80px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .mood-item:hover {
+      background: #d0f0d0;
+    }
+
+    .actions-grid {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .action-button {
+      background: #4caf50;
+      color: white;
+      border: none;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .action-button:hover {
+      background: #388e3c;
+    }
+
+    .modal, .breathing-exercise {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 2rem;
+      border-radius: 15px;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      position: relative;
+    }
+
+    .video-container {
+      margin: 1rem 0;
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+    }
+
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .breathing-circle {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: #4caf50;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: breathing 6s infinite;
+    }
+
+    .circle-text {
+      color: white;
+      font-size: 2rem;
+    }
+
+    @keyframes breathing {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.5); }
+    }
+
+    .close-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: transparent;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+  </style>
 </head>
-
 <body>
-  Hello world
-  <script src="script.js"></script>
-</body>
+  <nav class="nav-bar">
+    <div class="nav-content">
+      <div class="nav-logo"><span class="logo-text">תמיכה נפשית</span></div>
+        <div class="nav-links">
+          <a href="index.html"class="active">דף ראשי</a>
+          <a href="gad7.html">חרדה</a>
+          <a href="pcl5.html">פוסט טראומה</a>
+          <a href="phq9.html">דיכאון</a>
+          <a href="ai.html">תמיכה AI</a>
+          <a href="meditations.html">מדיטציה</a>
+          <a href="Mood-Tracker.html">מעקב רגשות</a>
+      </div>
+    </div>
+  </nav>
 
+  <main class="main-content">
+    <section class="hero-section">
+      <h1>ברוכים הבאים למרחב הבטוח שלכם</h1>
+      <p>כאן תמצאו כלים, תמיכה והכוונה להתמודדות עם אתגרים נפשיים</p>
+    </section>
+
+    <section class="mood-tracker">
+      <h2>איך אתם מרגישים היום?</h2>
+      <h4>לפי מה שתבחרו תיגשו לשאלון המתאים</h4>
+      <div class="mood-grid" id="moodGrid">
+        <div class="mood-item" data-mood="sad"><div class="mood-icon">😢</div><span>עצב</span></div>
+        <div class="mood-item" data-mood="anger"><div class="mood-icon">😠</div><span>כעס</span></div>
+        <div class="mood-item" data-mood="fear"><div class="mood-icon">😨</div><span>פחד</span></div>
+        <div class="mood-item" data-mood="loneliness"><div class="mood-icon">😔</div><span>בדידות</span></div>
+        <div class="mood-item" data-mood="anxious"><div class="mood-icon">😰</div><span>חרדה</span></div>
+        <div class="mood-item" data-mood="hopeless"><div class="mood-icon">😞</div><span>יאוש</span></div>
+      </div>
+    </section>
+
+    <section class="quick-actions">
+      <h2>כלים מהירים</h2>
+      <div class="actions-grid">
+        <button class="action-button breathing" onclick="startBreathing()">תרגיל נשימות</button>
+        <button class="action-button grounding" onclick="startGrounding()">תרגול התחברות לגוף ולסביבה</button>
+        <button class="action-button meditation" onclick="openMeditation()">מדיטציה מהירה</button>
+      </div>
+    </section>
+
+    <!-- תרגול נשימות -->
+    <div id="breathingExercise" class="breathing-exercise">
+      <div class="breathing-circle">
+        <div class="circle-text" id="breathingText">לשאוף</div>
+      </div>
+      <button class="close-button" onclick="closeBreathing()">✕</button>
+    </div>
+
+    <!-- מדיטציה מהירה -->
+    <div id="meditationModal" class="modal">
+      <div class="modal-content">
+        <h3>מדיטציה מודרכת להרגעה</h3>
+        <div class="video-container">
+          <iframe id="meditationVideo" frameborder="0" allowfullscreen></iframe>
+        </div>
+        <button onclick="closeMeditation()">סגור</button>
+      </div>
+    </div>
+
+    <!-- התחברות לגוף ולסביבה -->
+    <div id="groundingModal" class="modal">
+      <div class="modal-content">
+        <h3>תרגול התחברות לסביבה</h3>
+        <p id="groundingText">מבטו סביבכם וציינו 5 דברים שאתם רואים.</p>
+        <button onclick="nextGroundingStep()">הבא</button>
+        <button onclick="closeGrounding()">סיום</button>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    let breathingInterval;
+
+    function startBreathing() {
+      document.getElementById("breathingExercise").style.display = "flex";
+      const text = document.getElementById("breathingText");
+      let inhale = true;
+      text.innerText = "לשאוף";
+      breathingInterval = setInterval(() => {
+        inhale = !inhale;
+        text.innerText = inhale ? "לשאוף" : "לנשוף";
+      }, 3000);
+    }
+
+    function closeBreathing() {
+      document.getElementById("breathingExercise").style.display = "none";
+      clearInterval(breathingInterval);
+    }
+
+    function openMeditation() {
+      const videoUrl = "https://www.youtube.com/embed/In9AqmLYhiI?autoplay=1";
+      document.getElementById("meditationVideo").src = videoUrl;
+      document.getElementById("meditationModal").style.display = "flex";
+    }
+
+    function closeMeditation() {
+      document.getElementById("meditationModal").style.display = "none";
+      document.getElementById("meditationVideo").src = "";
+    }
+
+    const groundingSteps = [
+      "מבטו סביבכם וציינו 5 דברים שאתם רואים.",
+      "געו ב-4 חפצים סביבכם וחשבו על התחושה.",
+      "האזינו ל-3 קולות שונים שאתם שומעים.",
+      "שימו לב ל-2 ריחות שאתם מזהים.",
+      "התרכזו בתחושה אחת בגוף שלכם."
+    ];
+    let step = 0;
+
+    function startGrounding() {
+      step = 0;
+      document.getElementById("groundingText").innerText = groundingSteps[step];
+      document.getElementById("groundingModal").style.display = "flex";
+    }
+
+    function nextGroundingStep() {
+      step++;
+      if (step < groundingSteps.length) {
+        document.getElementById("groundingText").innerText = groundingSteps[step];
+      } else {
+        closeGrounding();
+      }
+    }
+
+    function closeGrounding() {
+      document.getElementById("groundingModal").style.display = "none";
+    }
+
+    document.querySelectorAll(".mood-item").forEach(item => {
+      item.addEventListener("click", () => {
+        const mood = item.dataset.mood;
+        switch (mood) {
+          case "anxious":
+            window.location.href = "gad7.html";
+            break;
+          case "sad":
+          case "hopeless":
+          case "loneliness":
+            window.location.href = "phq9.html";
+            break;
+          case "fear":
+          case "anger":
+            window.location.href = "pcl5.html";
+            break;
+        }
+      });
+    });
+  </script>
+</body>
 </html>
