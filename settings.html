@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>הגדרות</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      padding: 0;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    .section {
+      margin: 20px 0;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0;
+    }
+
+    select, button {
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 5px;
+      margin-top: 5px;
+    }
+
+    /* Color themes */
+    body.light {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    body.dark {
+      background-color: #222831;
+      color: #eeeeee;
+    }
+
+    body.darker {
+      background-color: #121212;
+      color: #cccccc;
+    }
+
+    .nav-bar .nav-links a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+    }
+    
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        padding-top: 80px; /* מרווח מה־nav-bar */
+        transition: background-color 0.3s, color 0.3s;
+      }
+
+      h1 {
+        text-align: center;
+        margin-bottom: 40px;
+        font-size: 2.5em;
+      }
+
+      .section {
+        margin: 20px auto;
+        max-width: 500px;
+        background-color: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        transition: background-color 0.3s;
+      }
+
+      label {
+        display: block;
+        margin: 10px 0 5px;
+        font-weight: bold;
+      }
+
+      select, button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        margin-top: 5px;
+        transition: background-color 0.3s;
+      }
+
+      button {
+        background-color: #4CAF50;
+        color: white;
+        margin-top: 20px;
+        cursor: pointer;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      /* Themes */
+      body.light {
+        background-color: #ffffff;
+        color: #000000;
+      }
+
+      body.light .section {
+        background-color: #f9f9f9;
+      }
+
+      body.dark {
+        background-color: #222831;
+        color: #eeeeee;
+      }
+
+      body.dark .section {
+        background-color: #2f3e46;
+      }
+
+      body.darker {
+        background-color: #121212;
+        color: #cccccc;
+      }
+
+      body.darker .section {
+        background-color: #1e1e1e;
+      }
+
+    
+  </style>
+</head>
+<body>
+  <nav class="nav-bar">
+    <div class="nav-content">
+      <div class="nav-logo">
+        <span class="logo-text">EMOFIX</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html"  id="home-link">דף ראשי</a>
+        <a href="gad7.html" id="gad7-link">חרדה</a>
+        <a href="pcl5.html" id="pcl5-link">פוסט טראומה</a>
+        <a href="phq9.html" id="phq9-link">דיכאון</a>
+        <a href="ai.html" id="ai-link">תמיכה AI</a>
+        <a href="meditations.html" id="meditations-link">מדיטציה</a>
+        <a href="Mood-Tracker.html" id="mood-tracker-link">מעקב רגשות</a>
+        <a href="settings.html" class="active" id="settings-link">הגדרות</a>
+      </div>
+    </div>
+  </nav>
+
+
+  <h1 id="settings-title">הגדרות</h1>
+
+  <div class="section">
+    <label for="theme-select" id="theme-label">בחר מצב תאורה:</label>
+    <select id="theme-select">
+      <option value="light">בהיר</option>
+      <option value="dark">כהה</option>
+      <option value="darker">כהה מאוד</option>
+    </select>
+  </div>
+
+  <div class="section">
+    <label for="lang-select" id="language-label">בחר שפה:</label>
+    <select id="lang-select">
+      <option value="he">עברית</option>
+      <option value="en">English</option>
+      <option value="ar">العربية</option>
+    </select>
+  </div>
+
+  <button onclick="saveSettings()" id="save-button">💾 שמור הגדרות</button>
+
+  <script>
+    const translations = {
+      he: {
+        "settings-title": "הגדרות",
+        "theme-label": "בחר מצב תאורה:",
+        "language-label": "בחר שפה:",
+        "save-button": "💾 שמור הגדרות",
+        "home-link": "דף ראשי",
+        "gad7-link": "חרדה",
+        "pcl5-link": "פוסט טראומה",
+        "phq9-link": "דיכאון",
+        "ai-link": "תמיכה AI",
+        "meditations-link": "מדיטציה",
+        "mood-tracker-link": "מעקב רגשות",
+        "settings-link": "הגדרות"
+      },
+      en: {
+        "settings-title": "Settings",
+        "theme-label": "Choose Theme:",
+        "language-label": "Choose Language:",
+        "save-button": "💾 Save Settings",
+        "home-link": "Home",
+        "gad7-link": "Anxiety",
+        "pcl5-link": "PTSD",
+        "phq9-link": "Depression",
+        "ai-link": "AI Support",
+        "meditations-link": "Meditation",
+        "mood-tracker-link": "Mood Tracker",
+        "settings-link": "Settings"
+      },
+      ar: {
+        "settings-title": "الإعدادات",
+        "theme-label": "اختر الوضع:",
+        "language-label": "اختر اللغة:",
+        "save-button": "💾 حفظ الإعدادات",
+        "home-link": "الرئيسية",
+        "gad7-link": "القلق",
+        "pcl5-link": "اضطراب ما بعد الصدمة",
+        "phq9-link": "الاكتئاب",
+        "ai-link": "دعم الذكاء الاصطناعي",
+        "meditations-link": "التأمل",
+        "mood-tracker-link": "تتبع المزاج",
+        "settings-link": "الإعدادات"
+      }
+    };
+
+    function applyTheme(theme) {
+      document.body.className = '';
+      document.body.classList.add(theme);
+    }
+
+    function applyLanguage(lang) {
+      const t = translations[lang];
+      document.getElementById("settings-title").textContent = t["settings-title"];
+      document.getElementById("theme-label").textContent = t["theme-label"];
+      document.getElementById("language-label").textContent = t["language-label"];
+      document.getElementById("save-button").textContent = t["save-button"];
+      document.getElementById("home-link").textContent = t["home-link"];
+      document.getElementById("gad7-link").textContent = t["gad7-link"];
+      document.getElementById("pcl5-link").textContent = t["pcl5-link"];
+      document.getElementById("phq9-link").textContent = t["phq9-link"];
+      document.getElementById("ai-link").textContent = t["ai-link"];
+      document.getElementById("meditations-link").textContent = t["meditations-link"];
+      document.getElementById("mood-tracker-link").textContent = t["mood-tracker-link"];
+      document.getElementById("settings-link").textContent = t["settings-link"];
+
+      document.documentElement.lang = lang;
+      document.documentElement.dir = lang === 'ar' ? 'rtl' : (lang === 'he' ? 'rtl' : 'ltr');
+    }
+
+    function saveSettings() {
+      const theme = document.getElementById("theme-select").value;
+      const lang = document.getElementById("lang-select").value;
+      localStorage.setItem("theme", theme);
+      localStorage.setItem("language", lang);
+      applyTheme(theme);
+      applyLanguage(lang);
+      alert(lang === 'he' ? "ההגדרות נשמרו" : lang === 'ar' ? "تم حفظ الإعدادات" : "Settings saved");
+    }
+
+    function loadSettings() {
+      const theme = localStorage.getItem("theme") || "light";
+      const lang = localStorage.getItem("language") || "he";
+      document.getElementById("theme-select").value = theme;
+      document.getElementById("lang-select").value = lang;
+      applyTheme(theme);
+      applyLanguage(lang);
+    }
+
+    // Load settings on page load
+    window.onload = function() {
+      loadSettings();
+    };
+  </script>
+</body>
+</html>

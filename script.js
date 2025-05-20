@@ -1,4 +1,4 @@
-// Mood selection handling
+ // Mood selection handling
 document.querySelectorAll('.mood-item').forEach(item => {
   item.addEventListener('click', () => {
     const mood = item.dataset.mood;
@@ -31,41 +31,42 @@ document.querySelectorAll('.mood-item').forEach(item => {
   });
 });
 
-// Breathing exercise
-function startBreathing() {
-  const exercise = document.getElementById('breathingExercise');
-  const circleText = document.querySelector('.circle-text');
-  exercise.style.display = 'flex';
-  
-  let phase = 'inhale';
-  updateBreathingText();
-  
-  function updateBreathingText() {
-    switch(phase) {
-      case 'inhale':
-        circleText.textContent = 'שאפו';
+  let breathingTimeout;
+
+  function startBreathing() {
+    const exercise = document.getElementById('breathingExercise');
+    const circleText = document.getElementById('breathingText');
+    exercise.style.display = 'flex';
+
+    let phase = 'inhale';
+
+    function updateBreathingText() {
+      clearTimeout(breathingTimeout);
+
+      if (phase === 'inhale') {
+        circleText.textContent = 'שאפו (4 שניות)';
         phase = 'hold';
-        setTimeout(updateBreathingText, 4000);
-        break;
-      case 'hold':
-        circleText.textContent = 'החזיקו';
+        breathingTimeout = setTimeout(updateBreathingText, 4000);
+      } else if (phase === 'hold') {
+        circleText.textContent = 'החזיקו את הנשימה (7 שניות)';
         phase = 'exhale';
-        setTimeout(updateBreathingText, 7000);
-        break;
-      case 'exhale':
-        circleText.textContent = 'נשפו';
+        breathingTimeout = setTimeout(updateBreathingText, 7000);
+      } else if (phase === 'exhale') {
+        circleText.textContent = 'נשפו באיטיות (8 שניות)';
         phase = 'inhale';
-        setTimeout(updateBreathingText, 8000);
-        break;
+        breathingTimeout = setTimeout(updateBreathingText, 8000);
+      }
     }
+
+    updateBreathingText();
+  }
+
+  function closeBreathing() {
+    const exercise = document.getElementById('breathingExercise');
+    exercise.style.display = 'none';
+    clearTimeout(breathingTimeout);
   }
 }
-
-function closeBreathing() {
-  const exercise = document.getElementById('breathingExercise');
-  exercise.style.display = 'none';
-}
-
 // Grounding exercise
 document.querySelector('.grounding').addEventListener('click', () => {
   const items = [

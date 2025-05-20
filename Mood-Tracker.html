@@ -1,68 +1,21 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>מעקב רגשות</title>
+  <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    :root {
-      --primary: #3f51b5;
-      --primary-dark: #303f9f;
-    }
-
     body {
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 0;
-      padding: 0;
-    }
-
-    /* בר ניווט */
-    .nav-bar {
-      background: var(--primary);
-      color: white;
-      padding: 10px 20px;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .nav-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .nav-logo .logo-text {
-      font-weight: bold;
-      font-size: 18px;
-    }
-
-    .nav-links a {
-      margin-right: 20px;
-      color: white;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .nav-links a:hover,
-    .nav-links a.active {
-      text-decoration: underline;
-    }
-
-    .container {
-      max-width: 900px;
-      margin: 2rem auto;
-      background: white;
-      padding: 2rem;
-      border-radius: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      background: #f0f4f8;
+      padding: 20px;
       text-align: center;
     }
 
     h1 {
-      color: var(--primary);
+      color: #333;
     }
 
     .mood-container {
@@ -85,7 +38,7 @@
 
     .mood-button:hover {
       background: #e0f0ff;
-      border-color: #3f51b5;
+      border-color: #007BFF;
     }
 
     textarea {
@@ -99,10 +52,10 @@
       resize: none;
     }
 
-    .save-btn {
+    button.save-btn {
       margin-top: 10px;
       padding: 10px 20px;
-      background: var(--primary);
+      background: #007BFF;
       color: white;
       border: none;
       border-radius: 10px;
@@ -110,12 +63,11 @@
       font-size: 16px;
     }
 
-    .save-btn:hover {
-      background: var(--primary-dark);
-    }
-
     #log {
       margin-top: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
       text-align: right;
     }
 
@@ -127,6 +79,17 @@
       box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
+    .delete-btn {
+      margin-top: 5px;
+      background: #dc3545;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      padding: 5px 10px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
     canvas {
       max-width: 100%;
       margin: 30px auto;
@@ -134,42 +97,40 @@
   </style>
 </head>
 <body>
-
   <nav class="nav-bar">
     <div class="nav-content">
-      <div class="nav-logo"><span class="logo-text">תמיכה נפשית</span></div>
-        <div class="nav-links">
-          <a href="index.html">דף ראשי</a>
-          <a href="gad7.html">חרדה</a>
-          <a href="pcl5.html">פוסט טראומה</a>
-          <a href="phq9.html">דיכאון</a>
-          <a href="ai.html">תמיכה AI</a>
-          <a href="meditations.html">מדיטציה</a>
-          <a href="Mood-Tracker.html" class="active">מעקב רגשות</a>
+      <div class="nav-logo">
+        <span class="logo-text">EMOFIX</span>
+      </div>
+      <div class="nav-links">
+        <a href="index.html">דף ראשי</a>
+        <a href="gad7.html">חרדה</a>
+        <a href="pcl5.html">פוסט טראומה</a>
+        <a href="phq9.html">דיכאון</a>
+        <a href="ai.html">תמיכה AI</a>
+        <a href="meditations.html">מדיטציה</a>
+        <a href="Mood-Tracker.html" class="active">מעקב רגשות</a>
       </div>
     </div>
   </nav>
 
-  <!-- תוכן הדף -->
-  <main class="container">
-    <h1>📊 מעקב רגשות יומי</h1>
+  <h1>📊 מעקב רגשות יומי</h1>
 
-    <div class="mood-container">
-      <button class="mood-button" onclick="selectMood('עצוב', '😢')">😢 עצוב</button>
-      <button class="mood-button" onclick="selectMood('כועס', '😠')">😠 כועס</button>
-      <button class="mood-button" onclick="selectMood('חרד', '😨')">😨 חרד</button>
-      <button class="mood-button" onclick="selectMood('בודד', '😔')">😔 בודד</button>
-      <button class="mood-button" onclick="selectMood('רגיל', '😐')">😐 רגיל</button>
-      <button class="mood-button" onclick="selectMood('שמח', '😊')">😊 שמח</button>
-    </div>
+  <div class="mood-container">
+    <button class="mood-button" onclick="selectMood('עצוב', '😢')">😢 עצוב</button>
+    <button class="mood-button" onclick="selectMood('כועס', '😠')">😠 כועס</button>
+    <button class="mood-button" onclick="selectMood('חרד', '😨')">😨 חרד</button>
+    <button class="mood-button" onclick="selectMood('בודד', '😔')">😔 בודד</button>
+    <button class="mood-button" onclick="selectMood('רגיל', '😐')">😐 רגיל</button>
+    <button class="mood-button" onclick="selectMood('שמח', '😊')">😊 שמח</button>
+  </div>
 
-    <textarea id="moodNote" placeholder="רוצה לשתף למה הרגשת ככה?"></textarea><br>
-    <button class="save-btn" onclick="saveMood()">שמור רגש</button>
+  <textarea id="moodNote" placeholder="רוצה לשתף למה הרגשת ככה?"></textarea><br>
+  <button class="save-btn" onclick="saveMood()">שמור רגש</button>
 
-    <canvas id="moodChart"></canvas>
+  <canvas id="moodChart"></canvas>
 
-    <div id="log"></div>
-  </main>
+  <div id="log"></div>
 
   <script>
     let selectedMood = '';
@@ -200,6 +161,14 @@
       renderChart();
     }
 
+    function deleteMood(date) {
+      const moodData = JSON.parse(localStorage.getItem('moodData')) || {};
+      delete moodData[date];
+      localStorage.setItem('moodData', JSON.stringify(moodData));
+      renderMoodLog();
+      renderChart();
+    }
+
     function renderMoodLog() {
       const logDiv = document.getElementById('log');
       logDiv.innerHTML = '';
@@ -210,7 +179,11 @@
         const entry = moodData[date];
         const div = document.createElement('div');
         div.className = 'log-entry';
-        div.innerHTML = `<strong>${date}:</strong> ${entry.emoji} ${entry.mood}<br>${entry.note || ''}`;
+        div.innerHTML = `
+          <strong>${date}:</strong> ${entry.emoji} ${entry.mood}<br>
+          ${entry.note || ''}<br>
+          <button class="delete-btn" onclick="deleteMood('${date}')">🗑️ מחק</button>
+        `;
         logDiv.appendChild(div);
       });
     }
@@ -221,7 +194,10 @@
       const sortedDates = Object.keys(moodData).sort();
 
       const labels = sortedDates;
-      const data = sortedDates.map(date => moodScore(moodData[date].mood));
+      const data = sortedDates.map(date => {
+        const mood = moodData[date].mood;
+        return moodScore(mood);
+      });
 
       if (window.moodChartInstance) {
         window.moodChartInstance.destroy();
@@ -234,8 +210,8 @@
           datasets: [{
             label: 'מצב רגשי',
             data: data,
-            backgroundColor: 'rgba(63, 81, 181, 0.2)',
-            borderColor: 'rgba(63, 81, 181, 1)',
+            backgroundColor: 'rgba(0, 123, 255, 0.2)',
+            borderColor: 'rgba(0, 123, 255, 1)',
             borderWidth: 2,
             tension: 0.3,
             fill: true
@@ -264,4 +240,16 @@
         "כועס": 2,
         "חרד": 3,
         "בודד": 4,
-        "רגיל": 5
+        "רגיל": 5,
+        "שמח": 6
+      };
+      return moodScale[mood] || 0;
+    }
+
+    window.onload = function() {
+      renderMoodLog();
+      renderChart();
+    };
+  </script>
+</body>
+</html>
