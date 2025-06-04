@@ -103,13 +103,13 @@
         <span class="logo-text">EMOFIX</span>
       </div>
       <div class="nav-links">
-        <a href="index.html">דף ראשי</a>
-        <a href="gad7.html">חרדה</a>
-        <a href="pcl5.html">פוסט טראומה</a>
-        <a href="phq9.html">דיכאון</a>
-        <a href="ai.html">תמיכה AI</a>
-        <a href="meditations.html">מדיטציה</a>
-        <a href="Mood-Tracker.html" class="active">מעקב רגשות</a>
+        <a href="index.html"  id="home-link">דף ראשי</a>
+        <a href="gad7.html" id="gad7-link">חרדה</a>
+        <a href="pcl5.html" id="pcl5-link">פוסט טראומה</a>
+        <a href="phq9.html" id="phq9-link">דיכאון</a>
+        <a href="meditations.html" id="meditations-link">מדיטציה</a>
+        <a href="Mood-Tracker.html" class="active" id="mood-tracker-link">מעקב רגשות</a>
+        <a href="settings.html" id="settings-link">הגדרות</a>
       </div>
     </div>
   </nav>
@@ -246,10 +246,12 @@
       return moodScale[mood] || 0;
     }
 
-    window.onload = function() {
+    window.onload = function () {
       renderMoodLog();
       renderChart();
+      loadSettings();
     };
   </script>
+  <script src="settings.js"></script>
 </body>
 </html>

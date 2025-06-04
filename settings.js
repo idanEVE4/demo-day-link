@@ -1,3 +1,5 @@
+// settings.js
+
 const translations = {
   he: {
     "home-link": "דף ראשי",
@@ -32,7 +34,7 @@ const translations = {
 };
 
 function applyTheme(theme) {
-  document.body.className = "";
+  document.body.className = '';
   document.body.classList.add(theme);
 }
 
@@ -42,16 +44,14 @@ function applyLanguage(lang) {
     const el = document.getElementById(key);
     if (el) el.textContent = t[key];
   }
+
   document.documentElement.lang = lang;
-  document.documentElement.dir = lang === 'ar' ? 'rtl' : (lang === 'he' ? 'rtl' : 'ltr');
+  document.documentElement.dir = (lang === 'ar' || lang === 'he') ? 'rtl' : 'ltr';
 }
 
-function loadPreferences() {
+function loadSettings() {
   const theme = localStorage.getItem("theme") || "light";
   const lang = localStorage.getItem("language") || "he";
   applyTheme(theme);
   applyLanguage(lang);
 }
-
-// טען את ההגדרות בעת עליית הדף
-window.addEventListener("DOMContentLoaded", loadPreferences);

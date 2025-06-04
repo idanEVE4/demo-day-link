@@ -4,6 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>תמיכה נפשית - דף הבית</title>
+   <link rel="stylesheet" href="styles.css" />
   <style>
     body {
       font-family: sans-serif;
@@ -14,35 +15,7 @@
       text-align: right;
     }
 
-    .nav-bar {
-      background-color: #4caf50;
-      padding: 1rem;
-      color: white;
-    }
-
-    .nav-content {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .nav-links a {
-      color: white;
-      margin-right: 1rem;
-      text-decoration: none;
-    }
-
-    .nav-links a.active {
-      font-weight: bold;
-      text-decoration: underline;
-    }
-
-    .hero-section {
-      text-align: center;
-      padding: 2rem;
-      background: #e8f5e9;
-    }
-
+   
     .mood-grid {
       display: flex;
       flex-wrap: wrap;
@@ -148,7 +121,7 @@
       position: absolute;
       top: 10px;
       left: 10px;
-      background: transparent;
+      background: #FFFFFF;
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
@@ -166,7 +139,6 @@
         <a href="gad7.html" id="gad7-link">חרדה</a>
         <a href="pcl5.html" id="pcl5-link">פוסט טראומה</a>
         <a href="phq9.html" id="phq9-link">דיכאון</a>
-        <a href="ai.html" id="ai-link">תמיכה AI</a>
         <a href="meditations.html" id="meditations-link">מדיטציה</a>
         <a href="Mood-Tracker.html" id="mood-tracker-link">מעקב רגשות</a>
         <a href="settings.html" id="settings-link">הגדרות</a>
@@ -311,6 +283,12 @@
       });
     });
   </script>
-  <script src="common.js"></script>
+  <script src="settings.js"></script>
+  <script>
+    window.onload = function () {
+      loadSettings();
+    };
+  </script>
+
 </body>
 </html>

@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>תמיכה AI</title>
+  <title>תמיכה AI - פוסט טראומה</title>
   <link rel="stylesheet" href="styles.css" />
   <style>
-    /* עיצוב גוף הדף */
     body {
       font-family: Arial, sans-serif;
       background-color: #f9f9f9;
@@ -17,13 +16,11 @@
       height: 100vh;
     }
 
-    /* תפריט ניווט */
     nav.nav-bar {
-      height: 60px; /* גובה קבוע */
+      height: 60px;
       flex-shrink: 0;
     }
 
-    /* מיכל הצ’אט */
     .chat-container {
       flex: 1;
       display: flex;
@@ -32,10 +29,9 @@
       padding: 1rem;
       box-sizing: border-box;
       overflow: hidden;
-      height: calc(100vh - 60px); /* מסך מלא פחות גובה הניווט */
+      height: calc(100vh - 60px);
     }
 
-    /* תיבת הודעות */
     .chat-box {
       flex: 1;
       overflow-y: auto;
@@ -44,7 +40,6 @@
       flex-direction: column;
     }
 
-    /* הודעות */
     .message {
       padding: 1rem;
       border-radius: 10px;
@@ -65,7 +60,6 @@
       margin-right: auto;
     }
 
-    /* שורת קלט */
     .chat-input {
       display: flex;
       gap: 1rem;
@@ -90,7 +84,6 @@
     .chat-input button:hover {
       background: var(--primary-dark, #1976d2);
     }
-
   </style>
 </head>
 <body>
@@ -100,20 +93,20 @@
         <span class="logo-text">EMOFIX</span>
       </div>
       <div class="nav-links">
-        <a href="index.html" id="home-link">דף ראשי</a>
-        <a href="gad7.html"  id="gad7-link">חרדה</a>
-        <a href="pcl5.html" id="pcl5-link">פוסט טראומה</a>
-        <a href="phq9.html" id="phq9-link">דיכאון</a>
-        <a href="ai.html" class="active" id="ai-link">לחרדה AI</a>
-        <a href="meditations.html" id="meditations-link">מדיטציה</a>
-        <a href="Mood-Tracker.html" id="mood-tracker-link">מעקב רגשות</a>
-        <a href="settings.html" id="settings-link">הגדרות</a>
+        <a href="index.html">דף ראשי</a>
+        <a href="gad7.html">חרדה</a>
+        <a href="pcl5.html" >פוסט טראומה</a>
+        <a href="phq9.html">דיכאון</a>
+        <a href="aiposttruma.html" class="active">AI לפוסט טראומה</a>
+        <a href="meditations.html">מדיטציה</a>
+        <a href="Mood-Tracker.html">מעקב רגשות</a>
+        <a href="settings.html">הגדרות</a>
       </div>
     </div>
   </nav>
 <br><br><br>
   <main class="chat-container">
-    <h2>שיחה עם EMOFIX</h2>
+    <h2>שיחה עם EMOFIX - פוסט טראומה</h2>
     <div class="chat-box" id="chatBox"></div>
 
     <div class="chat-input">
@@ -126,10 +119,9 @@
     const chatBox = document.getElementById("chatBox");
     const userInput = document.getElementById("userInput");
 
-    const gad7Score = localStorage.getItem("gad7Score");
-    const gad7Severity = localStorage.getItem("gad7Severity");
+    const pcl5Score = localStorage.getItem("pcl5Score");
+    const pcl5Severity = localStorage.getItem("pcl5Severity");
 
-    // שמירת כל ההיסטוריה של השיחה
     const conversationHistory = [
       {
         role: "user",
@@ -143,9 +135,7 @@
       const message = document.createElement("div");
       message.className = `message ${sender === "ai" ? "ai-message" : "user-message"}`;
       message.textContent = text;
-      if (isLoading) {
-        message.id = "loadingMessage";
-      }
+      if (isLoading) message.id = "loadingMessage";
       chatBox.appendChild(message);
       chatBox.scrollTop = chatBox.scrollHeight;
     }
@@ -167,7 +157,6 @@
       if (loadingMessage) loadingMessage.remove();
 
       appendMessage(response, "ai");
-
       conversationHistory.push({ role: "model", parts: [{ text: response }] });
     }
 
@@ -202,8 +191,8 @@
     }
 
     function startConversation() {
-      if (gad7Score && gad7Severity) {
-        const userMessage = `קיבלתי ציון של ${gad7Score} בשאלון GAD-7, עם רמת חרדה ${gad7Severity}. תוכל לתת לי הסבר על המצב שלי וגם עצות איך להתמודד עם זה?`;
+      if (pcl5Score && pcl5Severity) {
+        const userMessage = `קיבלתי ציון של ${pcl5Score} בשאלון PCL-5, עם רמת פוסט טראומה ${pcl5Severity}. תוכל להסביר לי מה זה אומר ולתת לי עצות להתמודדות?`;
         appendMessage(userMessage, "user");
         conversationHistory.push({ role: "user", parts: [{ text: userMessage }] });
         appendMessage("כותב תגובה...", "ai", true);
@@ -214,15 +203,14 @@
           conversationHistory.push({ role: "model", parts: [{ text: response }] });
         });
       } else {
-        const welcomeMessage = "שלום! איך אני יכול לעזור לך היום?";
-        appendMessage(welcomeMessage, "ai");
-        conversationHistory.push({ role: "model", parts: [{ text: welcomeMessage }] });
+        const welcome = "שלום! איך אני יכול לעזור לך היום?";
+        appendMessage(welcome, "ai");
+        conversationHistory.push({ role: "model", parts: [{ text: welcome }] });
       }
     }
 
     window.onload = startConversation;
   </script>
-
   <script src="settings.js"></script>
 </body>
 </html>

@@ -139,16 +139,16 @@
   <nav class="nav-bar">
     <div class="nav-content">
       <div class="nav-logo">
-        <span class="logo-text">תמיכה נפשית</span>
+        <span class="logo-text">EMOFIX</span>
       </div>
-        <div class="nav-links">
-          <a href="index.html">EMOFIX</a>
-          <a href="gad7.html">חרדה</a>
-          <a href="pcl5.html" class="active">פוסט טראומה</a>
-          <a href="phq9.html">דיכאון</a>
-          <a href="ai.html">תמיכה AI</a>
-          <a href="meditations.html">מדיטציה</a>
-          <a href="Mood-Tracker.html">מעקב רגשות</a>
+      <div class="nav-links">
+        <a href="index.html"  id="home-link">דף ראשי</a>
+        <a href="gad7.html" id="gad7-link">חרדה</a>
+        <a href="pcl5.html" class="active" id="pcl5-link">פוסט טראומה</a>
+        <a href="phq9.html" id="phq9-link">דיכאון</a>
+        <a href="meditations.html" id="meditations-link">מדיטציה</a>
+        <a href="Mood-Tracker.html" id="mood-tracker-link">מעקב רגשות</a>
+        <a href="settings.html" id="settings-link">הגדרות</a>
       </div>
     </div>
   </nav>
@@ -314,10 +314,31 @@
       localStorage.setItem("pcl5Score", totalScore);
       localStorage.setItem("pcl5Severity", severity);
       
-      setTimeout(() => {
-        window.location.href = `ai.html?type=trauma&level=${severity}`;
-      }, 3000);
+      resultCard.style.display = "block";
+
+      // // Save results
+      // localStorage.setItem("gad7Score", score);
+      // localStorage.setItem("gad7Severity", severity);
+
+      // Add AI support button
+      const aiButton = document.createElement("button");
+      aiButton.textContent = "מעבר לשיחה עם AI";
+      aiButton.className = "submit-button";
+      aiButton.style.marginTop = "1.5rem";
+      aiButton.onclick = () => {
+        window.location.href = `Aiposttruma.html?type=anxiety&level=${severity}`;
+      };
+
+      resultCard.appendChild(aiButton);
+
     });
   </script>
+  <script src="settings.js"></script>
+  <script>
+    window.onload = function () {
+      loadSettings();
+    };
+  </script>
+
 </body>
 </html>

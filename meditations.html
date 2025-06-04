@@ -70,21 +70,51 @@
       <div class="nav-logo">
         <span class="logo-text">EMOFIX</span>
       </div>
-        <div class="nav-links">
-          <a href="index.html">דף ראשי</a>
-          <a href="gad7.html">חרדה</a>
-          <a href="pcl5.html">פוסט טראומה</a>
-          <a href="phq9.html">דיכאון</a>
-          <a href="ai.html">תמיכה AI</a>
-          <a href="meditations.html" class="active">מדיטציה</a>
-          <a href="Mood-Tracker.html">מעקב רגשות</a>
+      <div class="nav-links">
+        <a href="index.html"  id="home-link">דף ראשי</a>
+        <a href="gad7.html" id="gad7-link">חרדה</a>
+        <a href="pcl5.html" id="pcl5-link">פוסט טראומה</a>
+        <a href="phq9.html" id="phq9-link">דיכאון</a>
+        <a href="meditations.html" class=active id="meditations-link">מדיטציה</a>
+        <a href="Mood-Tracker.html" id="mood-tracker-link">מעקב רגשות</a>
+        <a href="settings.html" id="settings-link">הגדרות</a>
       </div>
     </div>
   </nav>
 
+  
   <main class="container">
-    <h1>תרגולי מדיטציה ונשימות</h1>
-    <div id="meditationContent"></div>
+    <h1>תרגולי מדיטציה ויוגה מומלצים</h1>
+
+    <div class="section">
+      <h2>מדיטציה למתחילים – 7 דקות</h2>
+      <p>תרגול קצר וממוקד למתחילים עם לאה יוגה.</p>
+      <iframe src="https://www.youtube.com/embed/1OHlfVpxt1A" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="section">
+      <h2>מדיטציה מודרכת 5 דקות בעברית</h2>
+      <p>מדיטציה להרגעה מומלצת למבוגרים, בהנחיית המאמנת ליה.</p>
+      <iframe src="https://www.youtube.com/embed/kx9lBhDFGQE" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="section">
+      <h2>יוגה ומדיטציה – 40 דקות</h2>
+      <p>תרגול יוגה מלא הכולל מדיטציה ופרניאמה, מתאים לבוקר או לערב.</p>
+      <iframe src="https://www.youtube.com/embed/OhNP0QU-ad4" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="section">
+      <h2>יוגה באורך מלא לבוקר – 85 דקות</h2>
+      <p>שיעור יוגה קבוצתי בזום הכולל מדיטציה, נשימה ותנועה עם מנטרת So Hum.</p>
+      <iframe src="https://www.youtube.com/embed/IamSckDIaPY" frameborder="0" allowfullscreen></iframe>
+    </div>
+
+    <div class="section">
+      <h2>תרגול יוגה 30 דקות לכל הגוף</h2>
+      <p>תרגול יוגה מקיף לגוף ולנפש כולל תנוחות יוגה, תרגילי נשימה ומדיטציה.</p>
+      <iframe src="https://www.youtube.com/embed/gylCQDuc-Ds" frameborder="0" allowfullscreen></iframe>
+    </div>
 
     <div class="back-button">
       <a href="index.html">חזרה לדף הראשי</a>
@@ -171,5 +201,12 @@
       </div>
     ;
   </script>
+  <script src="settings.js"></script>
+  <script>
+    window.onload = function () {
+      loadSettings();
+    };
+  </script>
+
 </body>
 </html> 

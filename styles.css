@@ -230,3 +230,17 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
   }
 }
+body.dark {
+  --background: #222831;
+  --text: #eeeeee;
+}
+
+body.darker {
+  --background: #121212;
+  --text: #cccccc;
+}
+
+body.light {
+  --background: #f8faf8;
+  --text: #2c3e50;
+}
