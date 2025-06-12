@@ -9,7 +9,7 @@
     /* עיצוב גוף הדף */
     body {
       font-family: Arial, sans-serif;
-      background-color: #f9f9f9;
+     
       margin: 0;
       padding: 0;
       display: flex;
@@ -121,8 +121,12 @@
       <button onclick="sendMessage()">שלח</button>
     </div>
   </main>
-
+   <script src="settings.js"></script>
   <script>
+
+    window.onload = function () {
+      loadSettings();
+    };
     const chatBox = document.getElementById("chatBox");
     const userInput = document.getElementById("userInput");
 
@@ -223,6 +227,6 @@
     window.onload = startConversation;
   </script>
 
-  <script src="settings.js"></script>
+ 
 </body>
 </html>

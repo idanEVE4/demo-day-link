@@ -9,7 +9,7 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f0f4f8;
+     
       padding: 20px;
       text-align: center;
     }
@@ -131,8 +131,11 @@
   <canvas id="moodChart"></canvas>
 
   <div id="log"></div>
-
+  <script src="settings.js"></script>
   <script>
+    window.onload = function () {
+      loadSettings();
+    };
     let selectedMood = '';
     let selectedEmoji = '';
 
@@ -252,6 +255,6 @@
       loadSettings();
     };
   </script>
-  <script src="settings.js"></script>
+  
 </body>
 </html>

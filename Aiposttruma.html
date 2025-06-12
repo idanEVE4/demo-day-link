@@ -104,9 +104,9 @@
       </div>
     </div>
   </nav>
-<br><br><br>
+<br><br><br><br<br><br><br
   <main class="chat-container">
-    <h2>שיחה עם EMOFIX - פוסט טראומה</h2>
+    <h2>שיחה עם EMOFIX</h2>
     <div class="chat-box" id="chatBox"></div>
 
     <div class="chat-input">
@@ -114,8 +114,11 @@
       <button onclick="sendMessage()">שלח</button>
     </div>
   </main>
-
+   <script src="settings.js"></script>
   <script>
+    window.onload = function () {
+      loadSettings();
+    };
     const chatBox = document.getElementById("chatBox");
     const userInput = document.getElementById("userInput");
 
@@ -211,6 +214,6 @@
 
     window.onload = startConversation;
   </script>
-  <script src="settings.js"></script>
+ 
 </body>
 </html>

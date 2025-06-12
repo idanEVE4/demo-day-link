@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
+
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>מדיטציות ותמיכה רגשית</title>
   <link rel="stylesheet" href="styles.css">
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #f5f5f5;
       margin: 0;
       padding: 0;
     }
@@ -19,10 +19,11 @@
       background: white;
       padding: 2rem;
       border-radius: 15px;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
     }
 
-    h1, h2 {
+    h1,
+    h2 {
       color: var(--primary, #3f51b5);
     }
 
@@ -64,6 +65,7 @@
     }
   </style>
 </head>
+
 <body>
   <nav class="nav-bar">
     <div class="nav-content">
@@ -71,7 +73,7 @@
         <span class="logo-text">EMOFIX</span>
       </div>
       <div class="nav-links">
-        <a href="index.html"  id="home-link">דף ראשי</a>
+        <a href="index.html" id="home-link">דף ראשי</a>
         <a href="gad7.html" id="gad7-link">חרדה</a>
         <a href="pcl5.html" id="pcl5-link">פוסט טראומה</a>
         <a href="phq9.html" id="phq9-link">דיכאון</a>
@@ -82,7 +84,7 @@
     </div>
   </nav>
 
-  
+
   <main class="container">
     <h1>תרגולי מדיטציה ויוגה מומלצים</h1>
 
@@ -120,8 +122,12 @@
       <a href="index.html">חזרה לדף הראשי</a>
     </div>
   </main>
-
+  <script src="settings.js"></script>
   <script>
+
+    window.onload = function () {
+      loadSettings();
+    };
     const params = new URLSearchParams(window.location.search);
     let type = params.get("type") || localStorage.getItem("diagnosisType") || "depression";
 
@@ -199,14 +205,11 @@
           <iframe src="${v.url}" frameborder="0" allowfullscreen></iframe>
         ).join('')}
       </div>
-    ;
-  </script>
-  <script src="settings.js"></script>
-  <script>
-    window.onload = function () {
-      loadSettings();
-    };
+      ;
   </script>
 
+
+
 </body>
-</html> 
+
+</html>

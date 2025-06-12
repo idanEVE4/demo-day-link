@@ -8,7 +8,7 @@
   <style>
     body {
       font-family: sans-serif;
-      background: #f9f9f9;
+      
       margin: 0;
       padding: 0;
       direction: rtl;
@@ -204,10 +204,15 @@
       </div>
     </div>
   </main>
-
+   <script src="settings.js"></script>
   <script>
     let breathingInterval;
 
+
+    window.onload = function () {
+      loadSettings();
+    };
+    
     function startBreathing() {
       document.getElementById("breathingExercise").style.display = "flex";
       const text = document.getElementById("breathingText");
@@ -283,12 +288,7 @@
       });
     });
   </script>
-  <script src="settings.js"></script>
-  <script>
-    window.onload = function () {
-      loadSettings();
-    };
-  </script>
+ 
 
 </body>
 </html>

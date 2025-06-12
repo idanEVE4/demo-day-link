@@ -141,7 +141,6 @@
         <a href="gad7.html" id="gad7-link">חרדה</a>
         <a href="pcl5.html" id="pcl5-link">פוסט טראומה</a>
         <a href="phq9.html" class="active" id="phq9-link">דיכאון</a>
-        <a href="ai.html" id="ai-link">תמיכה AI</a>
         <a href="meditations.html" id="meditations-link">מדיטציה</a>
         <a href="Mood-Tracker.html" id="mood-tracker-link">מעקב רגשות</a>
         <a href="settings.html"  id="settings-link">הגדרות</a>
@@ -290,17 +289,14 @@
       
       resultCard.style.display = "block";
 
-      // Save results
-      localStorage.setItem("gad7Score", score);
-      localStorage.setItem("gad7Severity", severity);
-
+    
       // Add AI support button
       const aiButton = document.createElement("button");
       aiButton.textContent = "מעבר לשיחה עם AI";
       aiButton.className = "submit-button";
       aiButton.style.marginTop = "1.5rem";
       aiButton.onclick = () => {
-        window.location.href = `ai.html?type=anxiety&level=${severity}`;
+        window.location.href = `aidepression.html?type=anxiety&level=${severity}`;
       };
 
       resultCard.appendChild(aiButton);
